@@ -1,0 +1,22 @@
+
+.background-head {
+  background-image: url('../img/bg_hero_1.svg')
+}
+.logs-container {
+  min-height: 100px;
+  margin-top: 40px;
+}
+.sub-header-background {
+  background-image: url('/img/hero_mini.svg');
+}
+#submit-btn {
+  margin-top: 30px;
+}
+.card-click {
+  box-sizing: border-box;
+  border-left: 2px solid transparent;
+}
+.card-click:hover {
+  cursor: pointer;
+  /* border-left: 2px solid var(--indigo) !important; */
+}
