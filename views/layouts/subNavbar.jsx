@@ -6,7 +6,7 @@ function SubNavBarlayout(props) {
   if(props.uploadButton) {
     uploadButton = (
       <div classNameName="ml-auto my-2 my-lg-0">
-        <form method="POST" id="uploadForm" action="http://localhost:3001/upload" enctype="multipart/form-data">
+        <form method="POST" id="uploadForm" action="/upload" enctype="multipart/form-data">
           <input type="file" id="uploadFile" hidden name="log_file" />
         </form>
         <button classNameName="btn btn-dark rounded-pill uploadButton">upload File</button>

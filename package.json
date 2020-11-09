@@ -18,5 +18,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-inline-script": "^1.2.0"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
