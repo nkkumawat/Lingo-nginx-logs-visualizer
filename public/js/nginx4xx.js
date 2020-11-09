@@ -21,7 +21,10 @@ $(document).ready(function() {
       type: 'GET',
       success: function(response) {
         console.log(response);
-        createParamsAndDrawChart(response);
+        createParamsAndDrawChart(response.data2xx);
+        createParamsAndDrawChart(response.data3xx);
+        createParamsAndDrawChart(response.data4xx);
+        createParamsAndDrawChart(response.data5xx);
       },
       error: function() {
        

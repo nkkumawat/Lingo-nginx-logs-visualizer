@@ -20,3 +20,6 @@
   cursor: pointer;
   /* border-left: 2px solid var(--indigo) !important; */
 }
+.margin-left {
+  margin-left: -150px;;
+}

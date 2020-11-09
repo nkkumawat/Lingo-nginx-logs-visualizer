@@ -9,9 +9,9 @@ const nginxLogsController = require('../controllers/nginxLogsController');
 
 
 router.get('/', nginxLogsController.getNginxLogs);
-router.get('/:type/timeline', nginxLogsController.getStatusTimeLine);
-router.get('/:type/filter', nginxLogsController.getNginxStatusFilterLogs);
-router.get('/:type', nginxLogsController.getNginxStatusLogs);
+router.get('/timeline', nginxLogsController.getStatusTimeLine);
+router.get('/route-vs-count/filter', nginxLogsController.getNginxStatusFilterLogs);
+router.get('/route-vs-count', nginxLogsController.getNginxStatusLogs);
 
 
 module.exports = router;

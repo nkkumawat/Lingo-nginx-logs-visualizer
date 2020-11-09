@@ -16,7 +16,7 @@ function NavBarlayout(props) {
     <nav className="navbar navbar-expand-lg navbar-light navbar-floating">
       <div className="container">
         <a className="navbar-brand" href="/">
-          <img src="/favicon.png" alt="" width="40" />
+          <img src="/favicon.png" alt="" width="100" />
         </a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -30,10 +30,8 @@ function NavBarlayout(props) {
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Logs</a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="/nginx">Nginx Logs</a>
-                <a className="dropdown-item" href="/nginx/2xx">Nginx 2xx</a>
-                <a className="dropdown-item" href="/nginx/3xx">Nginx 3xx</a>
-                <a className="dropdown-item" href="/nginx/4xx">Nginx 4xx</a>
-                <a className="dropdown-item" href="/nginx/5xx">Nginx 5xx</a>
+                <a className="dropdown-item" href="/nginx/route-vs-count">Route vs Count</a>
+                <a className="dropdown-item" href="/nginx/timeline">Status Timeline</a>
               </div>
             </li>
             {/* <li className="nav-item">
@@ -42,9 +40,9 @@ function NavBarlayout(props) {
             <li className="nav-item">
               <a className="nav-link" href="updates.html">What's New</a>
             </li> */}
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="/contact">Contact</a>
-            </li>
+            </li> */}
           </ul>
           {uploadButton}
         </div>

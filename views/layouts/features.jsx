@@ -12,7 +12,7 @@ function FeatureLayout(props) {
         <div className="iconic-list">
           <div className="iconic-item wow fadeInUp">
             <div className="iconic-content">
-              <h5>Powerful Features</h5>
+              <h5>Powerful Filters</h5>
               <p className="fs-small">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
             </div>
             <div className="iconic-md iconic-text bg-warning fg-white rounded-circle">
@@ -51,7 +51,7 @@ function FeatureLayout(props) {
               <span className="mai-speedometer-outline"></span>
             </div>
             <div className="iconic-content">
-              <h5>Powerful Features</h5>
+              <h5>Powerful Filters</h5>
               <p className="fs-small">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
             </div>
           </div>

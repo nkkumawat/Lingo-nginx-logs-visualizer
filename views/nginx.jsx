@@ -20,10 +20,10 @@ function NginxPage(props) {
               <BarChart data={props.dataRequest} ></BarChart>
             </div>
             <div className="col-lg-6 wow card-click ">
-              <ColumnChart data={props.data404} onclickUrl="/nginx/4xx"></ColumnChart>
+              <ColumnChart data={props.data404} onclickUrl="/nginx/route-vs-count"></ColumnChart>
             </div>
             <div className="col-lg-6 wow card-click ">
-              <ColumnChart data={props.data502} onclickUrl="/nginx/5xx"></ColumnChart>
+              <ColumnChart data={props.data502} onclickUrl="/nginx/route-vs-count"></ColumnChart>
             </div>
             <div className="col-lg-6 wow card-click ">
               <ColumnChart data={props.dataMost} ></ColumnChart>

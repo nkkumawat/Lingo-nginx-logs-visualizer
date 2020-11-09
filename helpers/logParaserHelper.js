@@ -2,16 +2,25 @@ const { response } = require("../app");
 const { exec } = require("child_process");
 const { param } = require("../routes");
 var nginxParser = require('nginxparser');
-var parser = new nginxParser('$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"');
- 
+var parser = new nginxParser('$remote_addr - $remote_user [$time_local] "$request" $status');
 
 function convertTime(time) {
   var datePart = time.split(" ");
   if(datePart[0]) {
-    return datePart[0];
+    temp = datePart[0].split(':');
+    return "" + temp[0] + " " + temp[1] + ":" + temp[2];
   } else {
     return "";
   }
+}
+function applyFilter(params) {
+  var data = params.data;
+  if(params.ipFilter) {
+    if(!data.ip_str.includes(params.ipFilter)) {
+      data = {};
+    }
+  }
+  return data;
 }
 module.exports = {
   getRequestCodeAndCount: (params) => {
@@ -121,30 +130,31 @@ module.exports = {
   getStatusRangeCountAndLink: (params) => {
     return new Promise((resolve, reject) => {
       ipFilter = "";
-      if(params.ipFilter) {
-        ipFilter = " | grep '"+params.ipFilter+"'";
+      filter = params.filter || {};
+      if(filter.ipFilter) {
+        ipFilter = " | grep '"+params.filter.ipFilter+"'";
       }
       order = "r";
-      if(params.order && params.order === "asc") {
+      if(filter.order && params.filter.order === "asc") {
         order = "";
       }
       endpoint = "";
-      if(params.endpoint) {
-        endpoint = " | grep '"+params.endpoint+"'";
+      if(filter.endpoint) {
+        endpoint = " | grep '"+params.filter.endpoint+"'";
       }
       date = "";
-      if(params.date) {
-        date = ' | grep "\\[' + params.date.toString().replace(/-/g, "\\-");
+      if(filter.date) {
+        date = ' | grep "\\[' + params.filter.date.toString().replace(/-/g, "\\-");
       }
-      if(date && params.time) {
-        date += ":"+params.time;
-      } else if(params.time) {
-        date = ' | grep ":' + params.time.toString();
+      if(date && filter.time) {
+        date += ":"+params.filter.time;
+      } else if(filter.time) {
+        date = ' | grep ":' + filter.time.toString();
       }
       if(date) {
         date += '"';
       }
-      exec(`grep "HTTP/1.1\\" ${params.statusRange}" ${__dirname}/../uploads/${params.fileName} ${ipFilter} ${endpoint} ${date} | awk '{print $7}' | sort | uniq -c | sort -n${order}`, (error, stdout, stderr) => {
+      exec(`grep "HTTP/1.1\\" ${params.statusRange}" ${__dirname}/../uploads/${filter.fileName} ${ipFilter} ${endpoint} ${date} | awk '{print $7}' | sort | uniq -c | sort -n${order}`, (error, stdout, stderr) => {
         if (error) {
           reject({error: error});
         }
@@ -154,13 +164,15 @@ module.exports = {
         data = stdout.trim().split("\n");
         console.log(data);
         var response = {
-          graphTitle: `Request ${params.statusRange}xx and Count`, 
-          height: 500,
-          width: 600,
-          id: `request_count_${params.statusRange}`
+          graphTitle: `'Request ${params.statusRange}xx and Count'`, 
+          height: filter.height,
+          width: filter.width,
+          fileName: filter.fileName,
+          id: `request_count_${params.statusRange}`,
+          url: params.filter.url
         };
         resp = {};
-        limit = params.limit || 10;
+        limit = filter.limit || 10;
         for(i = 0; i < data.length && i < limit; i ++) {
           p = data[i].trim().split(" ");
           resp[(p[1] + "").replace(/\n/g, "")] = p[0];
@@ -174,6 +186,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       var logsData = [];
       parser.read(`${__dirname}/../uploads/${params.fileName}`, function (data) {
+        data.status ? data.status = data.status.substr(0, 3) : data.status = data.status
         logsData.push(data);
       }, function (err) {
         if (err) {
@@ -185,32 +198,67 @@ module.exports = {
   },
   getTypeTimelineData: (params) => {
     return new Promise((resolve, reject) => {
-      var logsData = {};
+      var logsData = {
+        "2xx": {},
+        "3xx": {},
+        "4xx": {},
+        "5xx": {}
+      };
       var type = params.type;
       params.logsData.forEach((data) => {
-        if(data.status === type) {
-          count = logsData[convertTime(data.time_local)] ? logsData[convertTime(data.time_local)] + 1 : 1;
-          logsData[convertTime(data.time_local)] = count;
+        if(data.status.charAt(0) === "5") {
+          count = logsData['5xx'][convertTime(data.time_local)] ? logsData['5xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['5xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "4") {
+          count = logsData['4xx'][convertTime(data.time_local)] ? logsData['4xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['4xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "3") {
+          count = logsData['3xx'][convertTime(data.time_local)] ? logsData['3xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['3xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "2") {
+          count = logsData['2xx'][convertTime(data.time_local)] ? logsData['2xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['2xx'][convertTime(data.time_local)] = count;
         }
       });
       var response = {
-        graphTitle: `Request ${type} Time and Count`, 
         height: 500,
         width: 600,
-        id: `request_count_request_${type}`,
         data: logsData
       };
       resolve(response);
-      // parser.read(`${__dirname}/../uploads/${params.fileName}`, function (data) {
-      //   logsData.push(data);
-      // }, function (err) {
-      //   if (err) {
-      //     reject({error: err});
-      //   }
-      //   resolve(logsData);
-      // });
     });
   },
-  
+  getStatusRangeCountAndLinkNew: (params) => {
+    return new Promise((resolve, reject) => {
+      var logsData = {
+        "2xx": {},
+        "3xx": {},
+        "4xx": {},
+        "5xx": {}
+      };
+      var type = params.type;
+      params.logsData.forEach((data) => {
+        if(data.status.charAt(0) === "5") {
+          count = logsData['5xx'][convertTime(data.time_local)] ? logsData['5xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['5xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "4") {
+          count = logsData['4xx'][convertTime(data.time_local)] ? logsData['4xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['4xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "3") {
+          count = logsData['3xx'][convertTime(data.time_local)] ? logsData['3xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['3xx'][convertTime(data.time_local)] = count;
+        } else if(data.status.charAt(0) === "2") {
+          count = logsData['2xx'][convertTime(data.time_local)] ? logsData['2xx'][convertTime(data.time_local)] + 1 : 1;
+          logsData['2xx'][convertTime(data.time_local)] = count;
+        }
+      });
+      var response = {
+        height: 500,
+        width: 600,
+        data: logsData
+      };
+      resolve(response);
+    });
+  },
 
 };

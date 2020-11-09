@@ -9,7 +9,7 @@ function ColumnChart(props) {
   var colors = ['#b87333', 'gold', 'silver', '#e5e4e2'];
   var graphTitle =  `${props.data.graphTitle}`;
   Object.keys(data).forEach(function(key,index) {
-    dataString += `['${key}', ${data[key]},"${colors[Math.floor(Math.random() * 4)]}"],`;
+    dataString += `['${key || "No Data"}', ${data[key] || 0},"${colors[Math.floor(Math.random() * 4)]}"],`;
   });
   var eventListener = "";
   if(props.onclickUrl) {
@@ -17,7 +17,7 @@ function ColumnChart(props) {
   }
   return (
     <div>
-      <div id={props.data.id}></div>
+      <div id={props.data.id} className={props.className}></div>
       <ReactScript>{`
         google.charts.load('current', {packages:['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -35,8 +35,8 @@ function ColumnChart(props) {
                           2]);
           var options = {
             title: "${graphTitle.toString()}",
-            width: ${props.data.width},
-            height: ${props.data.height},
+            width: ${props.data.width || 600},
+            height: ${props.data.height || 500},
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
           };
