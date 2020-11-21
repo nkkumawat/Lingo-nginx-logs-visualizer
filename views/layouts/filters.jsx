@@ -1,32 +1,70 @@
-var React = require('react');
+var React = require("react");
 function FilterLayout(props) {
   return (
     <>
-      <form method="GET" id="filter-form" action={props.url}><br/><br/><br/>
+      <form method="GET" id="filter-form" action={props.url}>
+        <br />
+        <br />
+        <br />
         <div className="form-row">
           <div className="form-group col-md-2">
-            <label for="ip-input" className="col-sm-2 col-form-label">Ip</label>
-            <input type="text" className="form-control" name="ip-input" id="ip-input" placeholder="Ip" />
+            <label for="ip-input" className="col-sm-2 col-form-label">
+              Ip
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              name="ip-input"
+              id="ip-input"
+              placeholder="Ip"
+            />
           </div>
           <div className="form-group col-md-2">
-            <label for="endpoint-input" className="col-sm-2 col-form-label">Endpoint</label>
-            <input type="text" className="form-control" id="endpoint-input" name="endpoint-input" placeholder="End Point" />
+            <label for="endpoint-input" className="col-sm-2 col-form-label">
+              Endpoint
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="endpoint-input"
+              name="endpoint-input"
+              placeholder="End Point"
+            />
           </div>
           <div className="form-group col-md-2">
-            <label for="order-select" className="col-sm-2 col-form-label">Order</label>
-            <select id="order-select" name="order-select" className="form-control">            
-              <option selected value="desc">Desc</option>
+            <label for="order-select" className="col-sm-2 col-form-label">
+              Order
+            </label>
+            <select
+              id="order-select"
+              name="order-select"
+              className="form-control"
+            >
+              <option selected value="desc">
+                Desc
+              </option>
               <option value="asc">Asc</option>
             </select>
           </div>
           <div className="form-group col-md-2">
-            <label for="date-input" className="col-sm-2 col-form-label">Date</label>
-            <input type="date" id="date-input" name="date-input" className="form-control" />
+            <label for="date-input" className="col-sm-2 col-form-label">
+              Date
+            </label>
+            <input
+              type="date"
+              id="date-input"
+              name="date-input"
+              className="form-control"
+            />
           </div>
           <div className="form-group col-md-2">
-            <label for="time-input" className="col-sm-2 col-form-label">Hour</label>
-            <select id="time-input" name="time-input" className="form-control">            
-              <option selected value="">--</option>
+            <label for="time-input" className="col-sm-2 col-form-label">
+              Hour
+            </label>
+            <select id="time-input" name="time-input" className="form-control">
+              <option selected value="">
+                --
+              </option>
               <option value="00">00</option>
               <option value="01">01</option>
               <option value="02">02</option>
@@ -55,15 +93,22 @@ function FilterLayout(props) {
             </select>
           </div>
           <div className="form-group col-md-2">
-            <button type="submit" id="submit-btn" className="btn btn-primary">Update</button>
+            <button type="submit" id="submit-btn" className="btn btn-primary">
+              Update
+            </button>
           </div>
         </div>
       </form>
       <div className="row">
-        <div className="col-sm12 col-md-6 col-lg-6">File Under View: <a target="_blank" href="/files/" >{props.fileName}</a> </div>
+        <div className="col-sm12 col-md-6 col-lg-6">
+          File Under View:{" "}
+          <a target="_blank" href="/files/">
+            {props.fileName}
+          </a>{" "}
+        </div>
       </div>
     </>
   );
-};
+}
 
 module.exports = FilterLayout;

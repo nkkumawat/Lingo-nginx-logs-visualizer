@@ -1,20 +1,22 @@
-
-var React = require('react');
-var chartHelper = require('../../helpers/chartHelper');
-var ReactScript = require('react-inline-script').Script;
+var React = require("react");
+var chartHelper = require("../../helpers/chartHelper");
+var ReactScript = require("react-inline-script").Script;
 
 function BarChart(props) {
   var data = props.data.data;
   var dataString = "";
-  var colors = ['#b87333', 'gold', 'silver', '#e5e4e2'];
-  var graphTitle =  `${props.data.graphTitle}`;
-  Object.keys(data).forEach(function(key,index) {
-    dataString += `['${key || "No data"}', ${data[key] || 0},"${colors[Math.floor(Math.random() * 4)]}"],`;
+  var colors = ["#b87333", "gold", "silver", "#e5e4e2"];
+  var graphTitle = `${props.data.graphTitle}`;
+  Object.keys(data).forEach(function (key, index) {
+    dataString += `['${key || "No data"}', ${data[key] || 0},"${
+      colors[Math.floor(Math.random() * 4)]
+    }"],`;
   });
   return (
     <div>
       <div id={props.data.id}></div>
-      <ReactScript>{`
+      <ReactScript>
+        {`
         google.charts.load('current', {packages:['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -36,7 +38,9 @@ function BarChart(props) {
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
           };
-          var chart = new google.visualization.BarChart(document.getElementById("${props.data.id}"));
+          var chart = new google.visualization.BarChart(document.getElementById("${
+            props.data.id
+          }"));
           google.visualization.events.addListener(chart, 'click', function() {
             window.location.assign("")
           });
@@ -49,5 +53,3 @@ function BarChart(props) {
 }
 
 module.exports = BarChart;
-
-

@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require("react");
 
 function DefaultLayout(props) {
   return (
@@ -12,7 +12,10 @@ function DefaultLayout(props) {
         <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
         <link rel="stylesheet" href="/css/maicons.css" />
         <link rel="stylesheet" href="/vendor/animate/animate.css" />
-        <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css" />
+        <link
+          rel="stylesheet"
+          href="/vendor/owl-carousel/css/owl.carousel.min.css"
+        />
         <link rel="stylesheet" href="/css/bootstrap.css" />
         <link rel="stylesheet" href="/css/mobster.css" />
         <link rel="stylesheet" href="/css/main.css" />

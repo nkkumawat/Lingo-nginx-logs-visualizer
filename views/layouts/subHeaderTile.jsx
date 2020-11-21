@@ -1,8 +1,8 @@
-var React = require('react');
+var React = require("react");
 
 function SubHeaderTilelayout(props) {
   return (
-    <div className="page-hero-section bg-image hero-mini sub-header-background" >
+    <div className="page-hero-section bg-image hero-mini sub-header-background">
       <div className="hero-caption">
         <div className="container fg-white ">
           <div className="row justify-content-center align-items-center text-center">
@@ -17,8 +17,3 @@ function SubHeaderTilelayout(props) {
 }
 
 module.exports = SubHeaderTilelayout;
-
-
-
-
-  

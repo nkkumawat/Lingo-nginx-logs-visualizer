@@ -1,8 +1,8 @@
-var React = require('react');
+var React = require("react");
 
 function HeaderTilelayout(props) {
   return (
-    <div className="page-hero-section bg-image hero-home-1 background-head" >
+    <div className="page-hero-section bg-image hero-home-1 background-head">
       <div className="hero-caption pt-5">
         <div className="container h-100">
           <div className="row align-items-center h-100">
@@ -13,7 +13,11 @@ function HeaderTilelayout(props) {
                 </span> 
               #2 Editor Choice App of 2020</div> */}
               <h1 className="mb-4">Manage your Logs easier</h1>
-              <p className="mb-4"> make it simple searching, analyzing your logs. You will spend less time debugging and more time shipping new awesome features</p>
+              <p className="mb-4">
+                {" "}
+                make it simple searching, analyzing your logs. You will spend
+                less time debugging and more time shipping new awesome features
+              </p>
               {/* <a href="#" className="btn btn-primary rounded-pill">Get App Now</a> */}
             </div>
             <div className="col-lg-6 d-none d-lg-block wow zoomIn">
@@ -29,5 +33,3 @@ function HeaderTilelayout(props) {
 }
 
 module.exports = HeaderTilelayout;
-
-

@@ -1,24 +1,29 @@
-
-var React = require('react');
-var chartHelper = require('../../helpers/chartHelper');
-var ReactScript = require('react-inline-script').Script;
+var React = require("react");
+var chartHelper = require("../../helpers/chartHelper");
+var ReactScript = require("react-inline-script").Script;
 
 function ColumnChart(props) {
   var data = props.data.data;
   var dataString = "";
-  var colors = ['#b87333', 'gold', 'silver', '#e5e4e2'];
-  var graphTitle =  `${props.data.graphTitle}`;
-  Object.keys(data).forEach(function(key,index) {
-    dataString += `['${key || "No Data"}', ${data[key] || 0},"${colors[Math.floor(Math.random() * 4)]}"],`;
+  var colors = ["#b87333", "gold", "silver", "#e5e4e2"];
+  var graphTitle = `${props.data.graphTitle}`;
+  Object.keys(data).forEach(function (key, index) {
+    dataString += `['${key || "No Data"}', ${data[key] || 0},"${
+      colors[Math.floor(Math.random() * 4)]
+    }"],`;
   });
   var eventListener = "";
-  if(props.onclickUrl) {
-    eventListener = 'google.visualization.events.addListener(chart, "click", function() {window.location.assign("'+props.onclickUrl+'")});';
+  if (props.onclickUrl) {
+    eventListener =
+      'google.visualization.events.addListener(chart, "click", function() {window.location.assign("' +
+      props.onclickUrl +
+      '")});';
   }
   return (
     <div>
       <div id={props.data.id} className={props.className}></div>
-      <ReactScript>{`
+      <ReactScript>
+        {`
         google.charts.load('current', {packages:['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -40,7 +45,9 @@ function ColumnChart(props) {
             bar: {groupWidth: "95%"},
             legend: { position: "none" },
           };
-          var chart = new google.visualization.ColumnChart(document.getElementById("${props.data.id}"));
+          var chart = new google.visualization.ColumnChart(document.getElementById("${
+            props.data.id
+          }"));
           ${eventListener}
           chart.draw(view, options);
         }
@@ -51,5 +58,3 @@ function ColumnChart(props) {
 }
 
 module.exports = ColumnChart;
-
-

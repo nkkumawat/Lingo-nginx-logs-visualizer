@@ -1,27 +1,12 @@
 {
   "production": {
-    "database": {
-      "username": "root",
-      "password": "Root@1234",
-      "database": "samlApp",
-      "host": "localhost",
-      "dialect": "mysql"
-    },
     "port": 3001,
     "host": "http://localhost:3000",
-    "secret":  "dummy",
-    "log-dir": "./logs"
+    "default-file": "log.logh"
   },
   "development": {
-    "database": {
-      "username": "root",
-      "password": "",
-      "database": "samlApp",
-      "host": "localhost",
-      "dialect": "mysql"
-    },
     "port": 3001,
     "host": "http://localhost:3000",
-    "log-dir": "./logs"
+    "default-file": "log.logh"
   }
 }
