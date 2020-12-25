@@ -5,8 +5,6 @@ Lingo logs is a free tool to visualize the nginx logs.
 - **Nginx Logs supported format ** `'$remote_addr - $remote_user [$time_local] "$request" $status'`
 
 
-<details>
-
 ## how to Start
 
 1. Clone the repository:
@@ -35,8 +33,6 @@ $ npm start
 
 4. Use tool by clicking http://localhost:3001:
 
-</details>
-
 
 ## How to use
 ### Request type - count
@@ -53,5 +49,5 @@ $ npm start
 ### Request timeline
 
 <p  align="center">
-  <img  src="./img/freq.png"  alt=""  width="738">
+  <img  src="./public/freq.png"  alt=""  width="738">
 </p>
